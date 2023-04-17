@@ -1,5 +1,6 @@
 package org.mobgens.storage;
 
+import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.mobgens.api.DatabaseHandler;
@@ -14,8 +15,7 @@ public class MobDatabase extends IDatabase implements DatabaseHandler {
 
 
     static {
-        setPlugin(MobCore.getPlugin(MobCore.class));
-        setURL("jdbc:sqlite:" + getPlugin().getDataFolder().getAbsolutePath() + "\\database.db");
+        setURL("jdbc:sqlite:" + MobCore.getPlugin().getDataFolder().getAbsolutePath() + "\\database.db");
     }
 
     @Override
@@ -104,11 +104,12 @@ public class MobDatabase extends IDatabase implements DatabaseHandler {
 
     @Override
     public void checkDatabase() {
-        File file = getPlugin().getDataFolder();
+        Plugin plugin = MobCore.getPlugin();
+        File file = plugin.getDataFolder();
         if (!file.exists()) {
             file.mkdir();
             createTable();
-            getPlugin().getLogger().log(Level.INFO, "Successfully created database!");
+            plugin.getLogger().log(Level.INFO, "Successfully created database!");
         }
     }
 }

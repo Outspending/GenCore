@@ -18,4 +18,8 @@ public class MobCore extends JavaPlugin {
     public void onDisable() {
         super.onDisable();
     }
+
+    public static JavaPlugin getPlugin() {
+        return getPlugin(MobCore.class);
+    }
 }

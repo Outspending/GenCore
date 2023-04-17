@@ -1,2 +1,3 @@
 generators:
     ew:
+      test: "string"

@@ -3,8 +3,12 @@ package org.mobgens.api;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
-public interface RegistryHandler {
+public interface RegistryHandler<T extends Generator> {
+
+    Map<String, Generator> registeredGenerators = new HashMap<>();
 
     void registerAllGenerators();
 
@@ -16,6 +20,6 @@ public interface RegistryHandler {
     boolean isRegistered(@NotNull String name);
 
     @NotNull
-    Collection<Generator> getRegisteredGenerators();
+    Collection<T> getRegisteredGenerators();
 
 }

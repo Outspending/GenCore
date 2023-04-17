@@ -16,10 +16,11 @@ import java.util.logging.Level;
 
 public class GeneratorRegistry implements RegistryHandler {
 
-    public static Map<String, Generator> registeredGenerators = new HashMap<>();
-    private static final Plugin plugin = MobCore.getPlugin(MobCore.class);
-    private static final YamlUtils utils = new YamlUtils();
-    private static final FileConfiguration configuration = utils.loadFile(plugin.getDataFolder().getAbsolutePath() + "/generators.yml");
+    private final FileConfiguration configuration;
+
+    public GeneratorRegistry() {
+        configuration = YamlUtils.loadFile("generators.yml");
+    }
 
     @Override
     public void registerAllGenerators() {
@@ -29,9 +30,9 @@ public class GeneratorRegistry implements RegistryHandler {
 
     @Override
     public void registerGenerator(@NotNull String name) {
-        GeneratorConfiguration config = GeneratorConfiguration.load(configuration, name);
-        registeredGenerators.put(name, config.getGenerator());
-        plugin.getLogger().log(Level.INFO, "Registered generator: " + name);
+        GeneratorConfiguration config = GeneratorConfiguration.load(configuration, "generators." + name);
+//        registeredGenerators.put(name, config.getGenerator());
+//        plugin.getLogger().log(Level.INFO, "Registered generator: " + name);
     }
 
     @Override
@@ -40,7 +41,7 @@ public class GeneratorRegistry implements RegistryHandler {
             return;
 
         registeredGenerators.remove(name);
-        plugin.getLogger().log(Level.INFO, "Unregistered generator: " + name);
+        MobCore.getPlugin().getLogger().log(Level.INFO, "Unregistered generator: " + name);
     }
 
     @Override

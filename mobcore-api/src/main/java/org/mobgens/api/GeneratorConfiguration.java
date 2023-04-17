@@ -2,12 +2,14 @@ package org.mobgens.api;
 
 import com.google.common.base.Preconditions;
 import org.bukkit.Material;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Set;
 
 public class GeneratorConfiguration {
 
@@ -23,8 +25,13 @@ public class GeneratorConfiguration {
         return new GeneratorConfiguration(configuration, path);
     }
 
-    public static @Nullable List<String> getGeneratorList() {
-        return configuration.getStringList(path + ".generators");
+    public static @Nullable Set<String> getGeneratorList() {
+        ConfigurationSection section = configuration.getConfigurationSection("generators");
+        return section.getKeys(false);
+    }
+
+    public @NotNull String getPath() {
+        return path;
     }
 
     public @NotNull String getName() {
