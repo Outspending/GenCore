@@ -70,7 +70,7 @@ public class GeneratorEntity implements MobCoreEntity {
     }
 
     @Override
-    public @NotNull Optional hasNameFormat() {
+    public @NotNull Optional<String> hasNameFormat() {
         String nameFormat = this.nameFormat;
         if (nameFormat == null)
             return Optional.empty();

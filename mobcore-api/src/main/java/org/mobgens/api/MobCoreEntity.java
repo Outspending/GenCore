@@ -20,7 +20,7 @@ public interface MobCoreEntity<T extends GeneratorEntity, V extends Entity> {
 
     @NotNull String setNameFormat(@NotNull String nameFormat);
 
-    @NotNull Optional<T> hasNameFormat();
+    @NotNull Optional<String> hasNameFormat();
 
     @Nullable String getNameFormat();
 
