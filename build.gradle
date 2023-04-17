@@ -1,0 +1,20 @@
+plugins {
+    id 'java'
+}
+
+subprojects {
+    group = 'org.mobgens'
+    version = '0.0.1'
+
+    repositories {
+        mavenCentral()
+        maven {
+            name = "papermc-repo"
+            url = "https://repo.papermc.io/repository/maven-public/"
+        }
+        maven {
+            name = "sonatype"
+            url = "https://oss.sonatype.org/content/groups/public/"
+        }
+    }
+}

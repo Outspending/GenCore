@@ -1,0 +1,13 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+}
+
+dependencies {
+    compileOnly "io.papermc.paper:paper-api:1.19-R0.1-SNAPSHOT"
+    implementation project(":mobcore-api")
+}
+
+shadowJar {
+    destinationDirectory = file("D:\\Testing Server\\plugins")
+}
