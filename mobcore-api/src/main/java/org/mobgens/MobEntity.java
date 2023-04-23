@@ -4,6 +4,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public interface MobEntity {
 
@@ -38,19 +39,20 @@ public interface MobEntity {
      * @return
      */
     @Contract(pure = true)
-    String getName();
+    @Nullable String getName();
 
     /**
      * Gets the entity
      * @return
      */
     @Contract(pure = true)
-    @NotNull Entity getEntity();
+    @Nullable Entity getEntity();
 
     /**
      * Gets the location of the entity
      * @return
      */
-    @NotNull Location getLocation();
+    @Contract(pure = true)
+    @Nullable Location getLocation();
 
 }
