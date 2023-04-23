@@ -37,7 +37,7 @@ public class PlayerGeneratorImpl implements PlayerGenerator {
         if (material == null)
             return;
 
-        Map<Material, List<Generator>> gens = PlayerGenerator.getGenerators(this.player);
+        Map<Material, List<PlayerGenerator>> gens = PlayerGenerator.getGenerators(this.player);
         if (gens.containsKey(material))
             gens.remove(material);
 

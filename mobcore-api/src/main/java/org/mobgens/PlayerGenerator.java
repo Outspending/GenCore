@@ -16,7 +16,7 @@ public interface PlayerGenerator {
     /**
      * The player generators
      */
-    @Nullable Map<UUID, Map<Material, List<Generator>>> playerGenerators = new HashMap<>();
+    @Nullable Map<UUID, Map<Material, List<PlayerGenerator>>> playerGenerators = new HashMap<>();
 
     /**
      * Sets the generator type
@@ -34,28 +34,25 @@ public interface PlayerGenerator {
      * Gets the generator type
      * @return
      */
-    @Contract("-> fail")
     @Nullable Generator getGenerator();
 
     /**
      * Gets the location of the generator
      * @return
      */
-    @Contract("-> fail")
     @Nullable Location getLocation();
 
     /**
      * Gets the player that owns the generator
      * @return
      */
-    @Contract("-> fail")
     @Nullable Player getPlayer();
 
     /**
      * Gets the all the player generators
      * @return
      */
-    static Map<UUID, Map<Material, List<Generator>>> getPlayerGenerators() {
+    static Map<UUID, Map<Material, List<PlayerGenerator>>> getPlayerGenerators() {
         return playerGenerators;
     }
 
@@ -64,7 +61,7 @@ public interface PlayerGenerator {
      * @param player
      * @return
      */
-    static Map<Material, List<Generator>> getGenerators(Player player) {
+    static Map<Material, List<PlayerGenerator>> getGenerators(Player player) {
         playerGenerators.computeIfAbsent(player.getUniqueId(), k -> new HashMap<>());
         return playerGenerators.get(player.getUniqueId());
     }
@@ -75,7 +72,7 @@ public interface PlayerGenerator {
      * @param material
      * @return
      */
-    static List<Generator> getGenMaterials(Player player, Material material) {
+    static List<PlayerGenerator> getGenMaterials(Player player, Material material) {
         playerGenerators.computeIfAbsent(player.getUniqueId(), k -> new HashMap<>());
         return playerGenerators.get(player.getUniqueId()).get(material);
     }
