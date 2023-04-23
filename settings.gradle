@@ -1,4 +1,5 @@
 rootProject.name = 'MobCore'
-include 'mobcore-common'
 include 'mobcore-api'
+include 'mobcore-api'
+include 'mobcore-common'
 
