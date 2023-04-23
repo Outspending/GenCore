@@ -23,7 +23,7 @@ public interface PlayerGenerator {
      * @param name
      */
     @Contract("null -> fail")
-    void setGenerator(String name) throws Exception;
+    void setGenerator(String name);
 
     /**
      * Removes the generator type
@@ -65,6 +65,7 @@ public interface PlayerGenerator {
      * @return
      */
     static Map<Material, List<Generator>> getGenerators(Player player) {
+        playerGenerators.computeIfAbsent(player.getUniqueId(), k -> new HashMap<>());
         return playerGenerators.get(player.getUniqueId());
     }
 
@@ -74,7 +75,8 @@ public interface PlayerGenerator {
      * @param material
      * @return
      */
-    static List<Generator> getGenerators(Player player, Material material) {
+    static List<Generator> getGenMaterials(Player player, Material material) {
+        playerGenerators.computeIfAbsent(player.getUniqueId(), k -> new HashMap<>());
         return playerGenerators.get(player.getUniqueId()).get(material);
     }
 }
