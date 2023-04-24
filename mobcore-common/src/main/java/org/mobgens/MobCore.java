@@ -12,14 +12,18 @@ public class MobCore extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        ConfigUtils.createConfigWithResource(new File(getDataFolder(), "config.yml"), "config.yml");
-        ConfigUtils.createConfigWithResource(new File(getDataFolder(), "generators.yml"), "generators.yml");
+        long start = System.nanoTime();
+        ConfigUtils.check(new File(getDataFolder(), "config.yml"), "config.yml");
+        ConfigUtils.check(new File(getDataFolder(), "generators.yml"), "generators.yml");
 
         Config config = new ConfigImpl();
         config.load();
 
         GeneratorConfig generatorConfig = new GeneratorConfigImpl();
         generatorConfig.load();
+
+        long end = System.nanoTime();
+        getLogger().info("Successfully loaded MobCore in " + (end - start) / 1000000 + "ms");
     }
 
     @Override

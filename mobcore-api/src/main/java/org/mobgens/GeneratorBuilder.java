@@ -42,11 +42,11 @@ public interface GeneratorBuilder {
 
     /**
      * Set the drop amount per generator
-     * @param dropAmount
+     * @param cost
      * @return
      */
     @Contract("_ -> this")
-    @NotNull GeneratorBuilder setDropAmount(int dropAmount);
+    @NotNull GeneratorBuilder setCost(double cost);
 
     /**
      * Builds the generator

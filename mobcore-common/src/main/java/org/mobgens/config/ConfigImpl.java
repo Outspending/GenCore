@@ -13,6 +13,7 @@ import org.mobgens.utils.ConfigUtils;
 
 import java.io.File;
 import java.util.Objects;
+import java.util.logging.Level;
 
 public class ConfigImpl implements Config {
 
@@ -35,7 +36,10 @@ public class ConfigImpl implements Config {
             ConfigImpl.noPermission = ColorUtils.colorizeHex(noPermission);
         } catch (IllegalArgumentException e) {
             plugin.getLogger().severe("There was an issue loading config file!");
+            return;
         }
+        plugin.getLogger().log(Level.INFO, "Successfully loaded config file!");
+
     }
 
     @Override

@@ -17,7 +17,7 @@ public class GeneratorBuilderImpl implements GeneratorBuilder {
     private Material nextMaterial;
     private ItemStack genItem;
     private ItemStack dropItem;
-    private int dropAmount;
+    private double cost;
 
     @Override
     public @NotNull GeneratorBuilder setName(String name) {
@@ -43,16 +43,17 @@ public class GeneratorBuilderImpl implements GeneratorBuilder {
         return this;
     }
 
-    @Override
-    public @NotNull GeneratorBuilder setDropAmount(int dropAmount) {
-        Preconditions.checkArgument(dropAmount > 0, "Drop amount must be greater than 0");
 
-        this.dropAmount = dropAmount;
+    @Override
+    public @NotNull GeneratorBuilder setCost(double cost) {
+        Preconditions.checkArgument(cost > 0, "Cost must be greater than 0");
+
+        this.cost = cost;
         return this;
     }
 
     @Override
     public @Nullable Generator build() {
-        return new GeneratorImpl(this.name, this.nextMaterial, this.genItem, this.dropItem, this.dropAmount);
+        return new GeneratorImpl(this.name, this.nextMaterial, this.genItem, this.dropItem, this.cost);
     }
 }

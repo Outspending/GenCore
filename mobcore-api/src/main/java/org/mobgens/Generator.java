@@ -40,7 +40,7 @@ public interface Generator {
      * Get the drop amount per generator
      * @return
      */
-    int getDropAmount();
+    double getCost();
 
     static Map<String, Generator> getGenerators() {
         return generators;

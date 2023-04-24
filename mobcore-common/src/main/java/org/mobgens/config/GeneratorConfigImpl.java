@@ -1,9 +1,12 @@
 package org.mobgens.config;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Mob;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.Nullable;
 import org.mobgens.Generator;
 import org.mobgens.GeneratorConfig;
@@ -13,6 +16,7 @@ import org.mobgens.generators.GeneratorImpl;
 import org.mobgens.utils.ConfigUtils;
 
 import java.io.File;
+import java.util.logging.Level;
 
 public class GeneratorConfigImpl implements GeneratorConfig {
 
@@ -35,6 +39,8 @@ public class GeneratorConfigImpl implements GeneratorConfig {
         for (String path : CONFIG_FILE.getConfigurationSection("generators").getKeys(false)) {
             registerGenerator(CONFIG_FILE, path);
         }
+        Plugin plugin = MobCore.getPlugin();
+        plugin.getLogger().log(Level.INFO, "Successfully registered " + registeredGenerators.size() + " generators!");
     }
 
     @Override
@@ -47,7 +53,11 @@ public class GeneratorConfigImpl implements GeneratorConfig {
         if (config == null)
             throw new IllegalArgumentException();
 
+        JavaPlugin plugin = MobCore.getPlugin();
         try {
+            if (registeredGenerators.values().contains(path))
+                plugin.getLogger().log(Level.WARNING, "Generator with name '" + path + "' is already registered!");
+
             final String name = checkType(path);
             final double cost = checkType(config.getDouble("generators." + path + ".upgrade_cost"));
             final Material next = Material.getMaterial(checkType(config.getString("generators." + path + ".next")));
@@ -64,13 +74,12 @@ public class GeneratorConfigImpl implements GeneratorConfig {
                     .setLore(config.getStringList("generators." + path + ".drop.lore"))
                     .build();
 
-            final Generator generator = new GeneratorImpl(name, next, item, drop, 1);
-            MobCore.getPlugin().getLogger().info("Registered generator " + path + "!");
+            final Generator generator = new GeneratorImpl(name, next, item, drop, cost);
+            registeredGenerators.put(name, generator);
+            return generator;
         } catch (IllegalArgumentException e) {
-            MobCore.getPlugin().getLogger().severe("There was an issue loading generator " + path + "!");
-            e.printStackTrace();
+            plugin.getLogger().severe("There was an issue loading generator " + path + "! (" + e.getMessage() + ")");
+            return null;
         }
-
-        return null;
     }
 }

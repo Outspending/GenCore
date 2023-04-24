@@ -38,8 +38,12 @@ public class PlayerGeneratorImpl implements PlayerGenerator {
             return;
 
         Map<Material, List<PlayerGenerator>> gens = PlayerGenerator.getGenerators(this.player);
-        if (gens.containsKey(material))
-            gens.remove(material);
+        List<PlayerGenerator> list = gens.get(material);
+        if (list.contains(this)) {
+            list.remove(this);
+            if (list.isEmpty())
+                gens.remove(material);
+        }
 
         this.location.getBlock().setType(Material.AIR);
     }

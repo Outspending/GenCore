@@ -11,14 +11,14 @@ public class GeneratorImpl implements Generator {
     private final Material nextMaterial;
     private final ItemStack genItem;
     private final ItemStack dropItem;
-    private final int dropAmount;
+    private final double cost;
 
-    public GeneratorImpl(String name, Material nextMaterial, ItemStack genItem, ItemStack dropItem, int dropAmount) {
+    public GeneratorImpl(String name, Material nextMaterial, ItemStack genItem, ItemStack dropItem, double cost) {
         this.name = name;
         this.nextMaterial = nextMaterial;
         this.genItem = genItem;
         this.dropItem = dropItem;
-        this.dropAmount = dropAmount;
+        this.cost = cost;
     }
 
     @Override
@@ -42,7 +42,7 @@ public class GeneratorImpl implements Generator {
     }
 
     @Override
-    public int getDropAmount() {
-        return this.dropAmount;
+    public double getCost() {
+        return this.cost;
     }
 }
