@@ -1,0 +1,5 @@
+name: GenCore
+version: 1.0.0
+main: org.gencore.GenCore
+author: Outspending
+api-version: 1.19

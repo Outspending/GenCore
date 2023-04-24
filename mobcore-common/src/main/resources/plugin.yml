@@ -1,4 +1,0 @@
-name: MobCore
-version: '${version}'
-main: org.mobgens.MobCore
-api-version: 1.19

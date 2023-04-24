@@ -1,0 +1,15 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+}
+
+dependencies {
+    compileOnly "io.papermc.paper:paper-api:1.19.4-R0.1-SNAPSHOT"
+    implementation project(':gencore-api')
+}
+
+shadowJar {
+    // D:\Testing Server\plugins
+    // C:\Users\josh9\OneDrive\Desktop\MC Server\plugins
+    destinationDirectory = file("D:\\Testing Server\\plugins")
+}

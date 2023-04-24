@@ -1,4 +1,4 @@
-rootProject.name = 'MobCore'
-include 'mobcore-api'
-include 'mobcore-common'
+rootProject.name = 'GenCore'
+include 'gencore-api'
+include 'gencore-common'
 
