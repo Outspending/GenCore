@@ -9,5 +9,6 @@ dependencies {
 }
 
 shadowJar {
-    destinationDirectory = file("D:\\Testing Server\\plugins")
+    // D:\Testing Server\plugins
+    destinationDirectory = file("C:\\Users\\josh9\\OneDrive\\Desktop\\MC Server\\plugins")
 }

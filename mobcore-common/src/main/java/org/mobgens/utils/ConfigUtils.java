@@ -19,12 +19,11 @@ public class ConfigUtils {
         return YamlConfiguration.loadConfiguration(file);
     }
 
-    public static boolean check(File file, String resourceName) {
+    public static YamlConfiguration check(File file, String resourceName) {
         if (file.exists())
-            return true;
+            return getConfig(file);
 
-        createConfigWithResource(file, resourceName);
-        return false;
+        return createConfigWithResource(file, resourceName);
     }
 
 }

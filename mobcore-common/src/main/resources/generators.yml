@@ -1,0 +1,24 @@
+generators:
+    name: # Name of the generator
+      upgrade_cost: 12000 # Cost of the next generator
+      next: COBBLESTONE # Next generator (If set to BARRIER, the generator will be the last one)
+      item: # Item of the generator
+          material: DIAMOND_PICKAXE # Material of the item
+          name: '&b&lDiamond Generator' # Name of the item
+          lore: # Lore of the item
+          - '&7Generates diamonds'
+          - '&7every 10 seconds'
+          - ''
+          - '&7Cost: &a$12,000'
+          - ''
+          - '&7Click to buy'
+      drop:
+            material: DIAMOND # Material of the drop
+            amount: 1 # Amount of the drop
+            name: '&b&lDiamond' # Name of the drop
+            lore: # Lore of the drop
+            - '&7Click to collect'
+            - ''
+            - '&7Cost: &a$12,000'
+            - ''
+            - '&7Click to buy'
