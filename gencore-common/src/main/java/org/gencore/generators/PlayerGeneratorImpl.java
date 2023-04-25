@@ -2,6 +2,7 @@ package org.gencore.generators;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
 import org.gencore.Generator;
@@ -21,6 +22,12 @@ public class PlayerGeneratorImpl implements PlayerGenerator {
         this.location = location;
     }
 
+    public PlayerGeneratorImpl(Player player, Location location, Generator generator) {
+        this.player = player;
+        this.location = location;
+        this.generator = generator;
+    }
+
     @Override
     public void setGenerator(String name) {
         Generator gen = Generator.getGenerators().get(name);
@@ -29,23 +36,6 @@ public class PlayerGeneratorImpl implements PlayerGenerator {
 
         this.generator = gen;
         this.location.getBlock().setType(gen.getGenItem().getType());
-    }
-
-    @Override
-    public void removeGenerator() {
-        Material material = this.location.getBlock().getType();
-        if (material == null)
-            return;
-
-        Map<Material, List<PlayerGenerator>> gens = PlayerGenerator.getGenerators(this.player);
-        List<PlayerGenerator> list = gens.get(material);
-        if (list.contains(this)) {
-            list.remove(this);
-            if (list.isEmpty())
-                gens.remove(material);
-        }
-
-        this.location.getBlock().setType(Material.AIR);
     }
 
     @Override
