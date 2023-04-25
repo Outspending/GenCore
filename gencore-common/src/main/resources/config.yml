@@ -1,2 +1,4 @@
 prefix: "&8[&c&lMobCore&8] &7"
 no-permission: "&cYou do not have permission to do this!"
+world: "overworld"
+starter-max-gens: 25

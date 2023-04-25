@@ -1,8 +1,10 @@
 package org.gencore;
 
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.gencore.config.ConfigImpl;
 import org.gencore.config.GeneratorConfigImpl;
+import org.gencore.events.GeneratorEvents;
 import org.gencore.utils.ConfigUtils;
 
 import java.io.File;
@@ -22,6 +24,7 @@ public class GenCore extends JavaPlugin {
         config.load();
         generatorConfig.load();
 
+        Bukkit.getPluginManager().registerEvents(new GeneratorEvents(), this);
         long end = System.nanoTime();
         getLogger().info("Successfully loaded GenCore in " + (end - start) / 1000000 + "ms");
     }

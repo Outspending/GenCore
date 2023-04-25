@@ -66,6 +66,13 @@ public interface GeneratorStorage {
     @Nullable Generator getGenerator(@NotNull String name);
 
     /**
+     * Gets the amount of generators
+     * @param plr
+     * @return
+     */
+    int getAmountOfGenerators(@NotNull Player plr);
+
+    /**
      * Adds a generator to storage
      * @param generator
      */

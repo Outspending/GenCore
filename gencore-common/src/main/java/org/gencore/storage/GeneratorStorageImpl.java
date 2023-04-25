@@ -16,7 +16,6 @@ public class GeneratorStorageImpl implements GeneratorStorage {
 
     public Map<UUID, Map<Material, List<PlayerGenerator>>> playerGenerators = new HashMap<>();
 
-
     @Override
     public @NotNull PlayerGenerator createGenerator(@NotNull Player plr, @NotNull Location location, @NotNull String name) {
         Generator generator = getGenerator(name);
@@ -71,6 +70,15 @@ public class GeneratorStorageImpl implements GeneratorStorage {
     }
 
     @Override
+    public int getAmountOfGenerators(@NotNull Player plr) {
+        Map<Material, List<PlayerGenerator>> gens = playerGenerators.get(plr.getUniqueId());
+        if (gens == null)
+            return 0;
+
+        return gens.values().stream().mapToInt(List::size).sum();
+    }
+
+    @Override
     public void addToStorage(@NotNull PlayerGenerator generator) {
         Player player = generator.getPlayer();
         playerGenerators.computeIfAbsent(player.getUniqueId(), k -> new HashMap<>())
@@ -112,5 +120,9 @@ public class GeneratorStorageImpl implements GeneratorStorage {
 
         generator.getPlayer().getWorld().getBlockAt(generator.getLocation()).setType(next);
         gens.computeIfAbsent(next, k -> new ArrayList<>()).add(generator);
+    }
+
+    public Map<UUID, Map<Material, List<PlayerGenerator>>> getPlayerGenerators() {
+        return playerGenerators;
     }
 }

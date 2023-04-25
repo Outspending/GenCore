@@ -1,5 +1,6 @@
 package org.gencore.config;
 
+import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.Nullable;
@@ -15,6 +16,9 @@ public class ConfigImpl implements Config {
 
     public String prefix;
     public String noPermission;
+    public World genWorld;
+    public int starterMaxGens;
+
 
     @Override
     public void load() {
@@ -28,9 +32,13 @@ public class ConfigImpl implements Config {
         try {
             final String prefix = checkType(config.getString("prefix"));
             final String noPermission = checkType(config.getString("no-permission"));
+            final World world = checkType(plugin.getServer().getWorld(config.getString("world")));
+            final int maxGens = checkType(config.getInt("starter-max-gens"));
 
             this.prefix = utils.colorizeHex(prefix);
             this.noPermission = utils.colorizeHex(noPermission);
+            this.genWorld = world;
+            this.starterMaxGens = maxGens;
         } catch (IllegalArgumentException e) {
             plugin.getLogger().severe("There was an issue loading config file!");
             return;
@@ -52,5 +60,13 @@ public class ConfigImpl implements Config {
 
     public String getNoPermission() {
         return noPermission;
+    }
+
+    public World getGenWorld() {
+        return genWorld;
+    }
+
+    public int getStarterMaxGens() {
+        return starterMaxGens;
     }
 }
