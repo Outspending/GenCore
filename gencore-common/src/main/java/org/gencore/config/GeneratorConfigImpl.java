@@ -18,7 +18,7 @@ import java.util.logging.Level;
 
 public class GeneratorConfigImpl implements GeneratorConfig {
 
-    private final YamlConfiguration CONFIG_FILE = ConfigUtils.check(new File(GenCore.getPlugin(GenCore.class).getDataFolder(), "generators.yml"), "generators.yml");
+    private final YamlConfiguration CONFIG_FILE = new ConfigUtils().check(new File(GenCore.getPlugin(GenCore.class).getDataFolder(), "generators.yml"), "generators.yml");
 
     @Override
     public void load() {

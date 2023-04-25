@@ -12,13 +12,14 @@ public class GenCore extends JavaPlugin {
     @Override
     public void onEnable() {
         long start = System.nanoTime();
-        ConfigUtils.check(new File(getDataFolder(), "config.yml"), "config.yml");
-        ConfigUtils.check(new File(getDataFolder(), "generators.yml"), "generators.yml");
 
+        ConfigUtils utils = new ConfigUtils();
         Config config = new ConfigImpl();
-        config.load();
-
         GeneratorConfig generatorConfig = new GeneratorConfigImpl();
+
+        utils.check(new File(getDataFolder(), "config.yml"), "config.yml");
+        utils.check(new File(getDataFolder(), "generators.yml"), "generators.yml");
+        config.load();
         generatorConfig.load();
 
         long end = System.nanoTime();

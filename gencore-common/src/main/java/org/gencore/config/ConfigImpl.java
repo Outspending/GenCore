@@ -13,13 +13,14 @@ import java.util.logging.Level;
 
 public class ConfigImpl implements Config {
 
-    private static String prefix;
-    private static String noPermission;
+    public String prefix;
+    public String noPermission;
 
     @Override
     public void load() {
         JavaPlugin plugin = GenCore.getPlugin();
-        YamlConfiguration config = ConfigUtils.check(new File(plugin.getDataFolder(), "config.yml"), "config.yml");
+        YamlConfiguration config = new ConfigUtils().check(new File(plugin.getDataFolder(), "config.yml"), "config.yml");
+        ColorUtils utils = new ColorUtils();
 
         /*
         * Loading the config
@@ -28,8 +29,8 @@ public class ConfigImpl implements Config {
             final String prefix = checkType(config.getString("prefix"));
             final String noPermission = checkType(config.getString("no-permission"));
 
-            ConfigImpl.prefix = ColorUtils.colorizeHex(prefix);
-            ConfigImpl.noPermission = ColorUtils.colorizeHex(noPermission);
+            this.prefix = utils.colorizeHex(prefix);
+            this.noPermission = utils.colorizeHex(noPermission);
         } catch (IllegalArgumentException e) {
             plugin.getLogger().severe("There was an issue loading config file!");
             return;
@@ -45,11 +46,11 @@ public class ConfigImpl implements Config {
         return type;
     }
 
-    public static String getPrefix() {
+    public String getPrefix() {
         return prefix;
     }
 
-    public static String getNoPermission() {
+    public String getNoPermission() {
         return noPermission;
     }
 }

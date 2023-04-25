@@ -3,13 +3,17 @@ package org.gencore.builders;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.gencore.utils.ConfigUtils;
 import org.jetbrains.annotations.NotNull;
 import org.gencore.ItemBuilder;
 import org.gencore.utils.ColorUtils;
 
+import java.awt.*;
 import java.util.List;
 
 public class ItemBuilderImpl implements ItemBuilder {
+
+    public final ColorUtils utils = new ColorUtils();
 
     private String name;
     private Material material;
@@ -44,8 +48,8 @@ public class ItemBuilderImpl implements ItemBuilder {
     public @NotNull ItemStack build() {
         ItemStack item = new ItemStack(material);
         ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName(ColorUtils.colorizeHex(name));
-        meta.setLore(lore.stream().map(ColorUtils::colorizeHex).toList());
+        meta.setDisplayName(utils.colorizeHex(name));
+        meta.setLore(lore.stream().map(utils::colorizeHex).toList());
         item.setItemMeta(meta);
         return item;
     }

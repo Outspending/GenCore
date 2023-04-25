@@ -10,11 +10,11 @@ public class ColorUtils {
 
     private static final Pattern HEX_PATTERN = Pattern.compile("&#([A-Fa-f0-9]{6})");
 
-    public static String colorize(@NotNull String string) {
+    public String colorize(@NotNull String string) {
         return ChatColor.translateAlternateColorCodes('&', string);
     }
 
-    public static String colorizeHex(@NotNull String string) {
+    public String colorizeHex(@NotNull String string) {
         Matcher matcher = HEX_PATTERN.matcher(string);
         while (matcher.find()) {
             String color = matcher.group(1);
@@ -23,7 +23,7 @@ public class ColorUtils {
         return colorize(string);
     }
 
-    public static Pattern getHexPattern() {
+    public Pattern getHexPattern() {
         return HEX_PATTERN;
     }
 }
