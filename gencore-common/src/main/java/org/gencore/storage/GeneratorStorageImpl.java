@@ -79,6 +79,16 @@ public class GeneratorStorageImpl implements GeneratorStorage {
     }
 
     @Override
+    public @Nullable Map<Material, List<PlayerGenerator>> getGenerators(@NotNull Player plr) {
+        return playerGenerators.get(plr.getUniqueId());
+    }
+
+    @Override
+    public @Nullable List<PlayerGenerator> getGenerators(@NotNull Player plr, @NotNull Material material) {
+        return playerGenerators.get(plr.getUniqueId()).get(material);
+    }
+
+    @Override
     public void addToStorage(@NotNull PlayerGenerator generator) {
         Player player = generator.getPlayer();
         playerGenerators.computeIfAbsent(player.getUniqueId(), k -> new HashMap<>())

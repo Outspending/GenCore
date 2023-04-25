@@ -1,5 +1,6 @@
 package org.gencore.events;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -10,7 +11,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
-import org.gencore.Config;
 import org.gencore.GeneratorStorage;
 import org.gencore.PlayerGenerator;
 import org.gencore.config.ConfigImpl;
@@ -24,9 +24,10 @@ public class GeneratorEvents implements Listener {
     @EventHandler(priority = EventPriority.LOWEST)
     public void onGenPlace(BlockPlaceEvent e) {
         Location loc = e.getBlock().getLocation();
-        if (config.getGenWorld() != loc.getWorld()) return;
+        if (!config.getGenWorld().equals(loc.getWorld())) return;
 
-        storage.createGenerator(e.getPlayer(), loc);
+        PlayerGenerator gen = storage.createGenerator(e.getPlayer(), loc);
+        Bukkit.getPluginManager().callEvent(new GeneratorPlaceEvent(gen, e.getPlayer()));
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
@@ -36,13 +37,13 @@ public class GeneratorEvents implements Listener {
 
         Block block = e.getClickedBlock();
         Location loc = block.getLocation();
-        if (config.getGenWorld() != loc.getWorld()) return;
+        if (!config.getGenWorld().equals(loc.getWorld())) return;
 
+        e.setCancelled(true);
         PlayerGenerator generator = storage.getGenerator(e.getPlayer(), loc);
-        if (generator == null) return;
-
         storage.removeFromStorage(generator);
         block.setType(Material.AIR);
+        Bukkit.getPluginManager().callEvent(new GeneratorBreakEvent(generator, e.getPlayer(), loc));
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
@@ -52,13 +53,13 @@ public class GeneratorEvents implements Listener {
 
         Block block = e.getClickedBlock();
         Location loc = block.getLocation();
-        if (config.getGenWorld() != loc.getWorld()) return;
+        if (!config.getGenWorld().equals(loc.getWorld())) return;
 
+        e.setCancelled(true);
         PlayerGenerator generator = storage.getGenerator(e.getPlayer(), loc);
-        if (generator == null) return;
-
         storage.upgradeFromStorage(generator);
         block.setType(generator.getGenerator().getNextMaterial());
+        Bukkit.getPluginManager().callEvent(new GeneratorUpgradeEvent(generator, e.getPlayer()));
     }
 
     private String replacePlaceholders(Player plr, String str) {

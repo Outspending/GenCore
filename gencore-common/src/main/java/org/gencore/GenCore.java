@@ -25,6 +25,8 @@ public class GenCore extends JavaPlugin {
         generatorConfig.load();
 
         Bukkit.getPluginManager().registerEvents(new GeneratorEvents(), this);
+        Bukkit.getScheduler().runTaskTimerAsynchronously(this, new DropRunnable(), 20, 20);
+
         long end = System.nanoTime();
         getLogger().info("Successfully loaded GenCore in " + (end - start) / 1000000 + "ms");
     }

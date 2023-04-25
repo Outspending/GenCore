@@ -1,4 +1,5 @@
 prefix: "&8[&c&lMobCore&8] &7"
 no-permission: "&cYou do not have permission to do this!"
-world: "overworld"
+world: "world"
 starter-max-gens: 25
+delay: 20

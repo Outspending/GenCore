@@ -1,9 +1,13 @@
 package org.gencore;
 
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
+import java.util.Map;
 
 public interface GeneratorStorage {
 
@@ -71,6 +75,21 @@ public interface GeneratorStorage {
      * @return
      */
     int getAmountOfGenerators(@NotNull Player plr);
+
+    /**
+     * Gets the generators
+     * @param plr
+     * @return
+     */
+    @Nullable Map<Material, List<PlayerGenerator>> getGenerators(@NotNull Player plr);
+
+    /**
+     * Gets the generators
+     * @param plr
+     * @param material
+     * @return
+     */
+    @Nullable List<PlayerGenerator> getGenerators(@NotNull Player plr, @NotNull Material material);
 
     /**
      * Adds a generator to storage

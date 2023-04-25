@@ -1,5 +1,6 @@
 package org.gencore.config;
 
+import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -18,6 +19,7 @@ public class ConfigImpl implements Config {
     public String noPermission;
     public World genWorld;
     public int starterMaxGens;
+    public long delay;
 
 
     @Override
@@ -33,14 +35,17 @@ public class ConfigImpl implements Config {
             final String prefix = checkType(config.getString("prefix"));
             final String noPermission = checkType(config.getString("no-permission"));
             final World world = checkType(plugin.getServer().getWorld(config.getString("world")));
-            final int maxGens = checkType(config.getInt("starter-max-gens"));
+            final int maxGens = config.getInt("starter-max-gens");
+            final long delay = config.getLong("delay");
 
             this.prefix = utils.colorizeHex(prefix);
             this.noPermission = utils.colorizeHex(noPermission);
             this.genWorld = world;
             this.starterMaxGens = maxGens;
+            this.delay = delay;
         } catch (IllegalArgumentException e) {
             plugin.getLogger().severe("There was an issue loading config file!");
+            Bukkit.getPluginManager().disablePlugin(plugin);
             return;
         }
         plugin.getLogger().log(Level.INFO, "Successfully loaded config file!");
@@ -68,5 +73,9 @@ public class ConfigImpl implements Config {
 
     public int getStarterMaxGens() {
         return starterMaxGens;
+    }
+
+    public long getDelay() {
+        return delay;
     }
 }
