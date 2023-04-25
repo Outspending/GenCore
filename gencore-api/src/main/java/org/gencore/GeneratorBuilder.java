@@ -14,7 +14,7 @@ public interface GeneratorBuilder {
      * @return
      */
     @Contract("_ -> this")
-    @NotNull GeneratorBuilder setName(String name);
+    @NotNull GeneratorBuilder setName(@NotNull String name);
 
     /**
      * Set the next material of the generator

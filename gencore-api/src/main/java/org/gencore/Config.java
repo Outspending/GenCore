@@ -1,6 +1,7 @@
 package org.gencore;
 
 import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public interface Config {
@@ -16,6 +17,5 @@ public interface Config {
      * @param type
      * @return
      */
-    @Contract("null -> fail")
-    <T> @Nullable T checkType(T type);
+    <T> @Nullable T checkType(@NotNull T type);
 }
